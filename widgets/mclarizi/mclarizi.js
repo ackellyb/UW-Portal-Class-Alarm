@@ -7,6 +7,6 @@ function mclarizi(userid, htmlId) {
 	portal.loadTemplates("widgets/mclarizi/templates.json",
 		function (t) {
 			templates = t;
-			$(htmlId).html(templates.baseHtml);
+			$(htmlId).html(templates.finalPage);
 		});
 }

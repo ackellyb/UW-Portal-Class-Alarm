@@ -6,6 +6,48 @@
 			"<label>Time : <input type='text' id='mclarizi_timeInput' size='5'/></label>",
 			"<button id='mclarizi_scheduleButton'>Schedule Alarm</button>",
 		"</div>"
+	],
+
+	"confirmPage": [
+		"<div id='mclarizi_inputField'>",
+			"<table style='width:270px'>",
+				"<tr>",
+					"<th>Week 1</th>",
+					"<th>Week 2</th>",
+				"</tr>",
+				"<tr>",
+					"<td id='mclarizi_schedulePage'>",
+					"</td>",
+					"<td id='mclarizi_schedulePage'>",
+					"</td>",
+				"</tr>",
+				"<tr>",
+					"<td colspan='2'>",
+						"<label>Is This Okay?</label>",
+						"<button id='mclarizi_yesButton'>Yes</button>",
+						"<button id='mclarizi_editButton'>Edit</button>",
+					"</td>",
+				"</tr>",
+			"</table>",
+		"</div>"
+	],
+
+	"finalPage": [
+		"<div id='mclarizi_inputField'>",
+			"<table style='width:270px' border='2'>",
+				"<tr>",
+					"<td colspan='2'>",
+					"<label>Edit Schedule:</label>",
+					"<button id='mclarizi_lastEditButton'>Edit</button>",
+					"</td>",
+					"<td id='mclarizi_schedulePage2'>",
+					"</td>",
+					"<td id='mclarizi_schedulePage2'>",
+					"</td>",
+
+				"</tr>",
+			"</table>",
+		"</div>"
 	]
 
 }

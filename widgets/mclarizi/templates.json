@@ -10,7 +10,7 @@
 
 	"confirmPage": [
 		"<div id='mclarizi_inputField'>",
-			"<table style='width:270px'>",
+			"<table>",
 				"<tr>",
 					"<th>Week 1</th>",
 					"<th>Week 2</th>",
@@ -34,7 +34,7 @@
 
 	"finalPage": [
 		"<div id='mclarizi_inputField'>",
-			"<table style='width:270px' border='2'>",
+			"<table>",
 				"<tr>",
 					"<td colspan='2'>",
 					"<label>Edit Schedule:</label>",
@@ -44,7 +44,6 @@
 					"</td>",
 					"<td id='mclarizi_schedulePage2'>",
 					"</td>",
-
 				"</tr>",
 			"</table>",
 		"</div>"

@@ -3,7 +3,7 @@
 	"baseHtml": [
 		"<div id='mclarizi_inputField'>",
 			"<button id='mclarizi_googleSignIn'>Sign in to Google </button>",
-			"<label>Time : <input type='text' id='mclarizi_timeInput' size='5'/></label>",
+			"<label>Time : <input type='number' id='mclarizi_timeInput' size='5'/></label>",
 			"<button id='mclarizi_scheduleButton'>Schedule Alarm</button>",
 		"</div>"
 	],

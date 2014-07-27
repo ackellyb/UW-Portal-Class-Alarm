@@ -7,6 +7,11 @@ function mclarizi(userid, htmlId) {
 	portal.loadTemplates("widgets/mclarizi/templates.json",
 		function (t) {
 			templates = t;
-			$(htmlId).html(templates.finalPage);
+			$(htmlId).html(templates.baseHtml);
 		});
+
+	$("#mclarizi_scheduleButton").click(function (t) {
+		templates = t;
+		$(htmlId).html(templates.confirmPage);
+	});
 }

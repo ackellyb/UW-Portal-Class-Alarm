@@ -1,4 +1,4 @@
-#mclarizi_schedulePage{
+#mclarizi_schedulePage1{
 	height: 146px;
 	width: 135px;
 }
@@ -14,4 +14,8 @@ th{
 
 table{
 	 width: 270px;
+}
+
+p{
+	margin: 0;
 }

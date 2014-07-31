@@ -1,5 +1,6 @@
 function mclarizi(userid, htmlId) {
 	var templates = {};
+	var apiKey = "8842fcd2130a486a636d632b28d890b8";
 
 	var model = {
 		views: [],
@@ -53,6 +54,7 @@ function mclarizi(userid, htmlId) {
 			model.addView(baseView.updateView);
 		}
 	};
+
 	/*
 	 * Initialize the widget.
 	 */

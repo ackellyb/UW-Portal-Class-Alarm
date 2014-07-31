@@ -23,8 +23,16 @@ function mclarizi(userid, htmlId) {
 			}
 		},
 
+		loadBasePage: function () {
+			model.updateViews("base");
+		},
+
 		loadConfirmPage: function (time) {
 			model.updateViews("confirm");
+		},
+
+		loadFinalPage: function () {
+			model.updateViews("final");
 		}
 
 	};
@@ -33,8 +41,8 @@ function mclarizi(userid, htmlId) {
 		updateView: function (msg) {
 			if (msg === "confirm") {
 				$(htmlId).html(templates.confirmPage);
-			} else if (msg === "final") {
-				$(htmlId).html(templates.finalPage);
+			} else if (msg === "error") {
+				$(htmlId).html("ERROR BITCH");
 			}
 		},
 
@@ -50,8 +58,66 @@ function mclarizi(userid, htmlId) {
 				var time = $("#mclarizi_timeInput").val();
 				console.log("Schedule clicked: " + time);
 				model.loadConfirmPage(time);
+				confirmView.initView();
 			});
 			model.addView(baseView.updateView);
+		}
+	};
+
+	var confirmView = {
+		updateView: function (msg) {
+			if (msg === "base") {
+				$(htmlId).html(templates.baseHtml);
+			} else if (msg === "final") {
+				$(htmlId).html(templates.finalPage);
+			}
+		},
+
+		initView: function () {
+			console.log("Initializing confirmView");
+
+			/*
+			 * Set the controller for the "Go" button.
+			 * Get the subject and catalog from the input fields and
+			 * then tell the model to get the corresponding course.
+			 */
+			$("#mclarizi_yesButton").click(function () {
+				console.log("Yes clicked!");
+				model.loadFinalPage();
+				finalView.initView();
+			});
+			$("#mclarizi_editButton").click(function () {
+				console.log("Edit clicked!");
+				model.loadBasePage();
+				baseView.initView();
+			});
+			model.addView(confirmView.updateView);
+		}
+	};
+
+	var finalView = {
+		updateView: function (msg) {
+			if (msg === "base") {
+				$(htmlId).html(templates.baseHtml);
+			} else if (msg === "error") {
+				$(htmlId).html(templates.finalPage);
+			}
+		},
+
+		initView: function () {
+			console.log("Initializing finalView");
+
+			/*
+			 * Set the controller for the "Go" button.
+			 * Get the subject and catalog from the input fields and
+			 * then tell the model to get the corresponding course.
+			 */
+			$("#mclarizi_lastEditButton").click(function () {
+				console.log("LastEdit clicked!");
+				model.loadBasePage();
+				baseView.initView();
+			});
+			model.addView(finalView.updateView);
 		}
 	};
 

@@ -1,3 +1,30 @@
+#mclarizi_inputField{
+	font-family: Segoe UI, serif;
+}
+
+.page1{
+	margin: 8px auto;
+	float: right;
+	padding-left: 0px;
+	padding-top: 0px;
+}
+
+#mclarizi_googleSignIn{
+	margin-bottom: 5px;
+}
+
+#mclarizi_instructions{
+	font-weight: bold;
+}
+
+#mclarizi_Minutes{
+	font-weight: normal;
+}
+
+#mclarizi_Location{
+	font-weight: normal;
+}
+
 #mclarizi_schedulePage1{
 	height: 146px;
 	width: 135px;
@@ -7,6 +34,28 @@
 	height: 196px;
 	width: 135px;
 }
+
+#mclarizi_timeInput{
+	font-weight: normal;
+	margin: 10px auto;
+}
+
+#mclarizi_locationInput{
+	font-weight: normal;
+}
+
+#mclarizi_okLabel{
+	font-weight: normal;
+}
+
+#mclarizi_editScheduleLabel{
+	font-weight: normal;
+}
+
+#mclarizi_lastEditButton{
+	margin-right: 10px;
+}
+
 
 th{
 	text-align: center;
@@ -18,4 +67,9 @@ table{
 
 p{
 	margin: 0;
+}
+
+th{
+	font-size: 18px;
+	text-decoration: underline;
 }

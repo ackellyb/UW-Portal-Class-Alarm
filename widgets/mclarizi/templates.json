@@ -1,9 +1,11 @@
 
 {
 	"baseHtml": [
-		"<div id='mclarizi_inputField'>",
+		"<div id='mclarizi_inputField' class='page1'>",
 			"<button id='mclarizi_googleSignIn'>Sign in to Google </button>",
-			"<label>Time : <input type='number' id='mclarizi_timeInput' size='5'/></label>",
+			"<label id='mclarizi_instructions'>Enter the amount of time it takes you to get ready in the morning.</label>",
+			"<label id='mclarizi_Minutes'>Minutes : <input type='number' id='mclarizi_timeInput' size='5'/></label>",
+			"<label id='mclarizi_Location'>Location : <input type='text' id='mclarizi_locationInput' size='20'/></label>",
 			"<button id='mclarizi_scheduleButton'>Schedule Alarm</button>",
 		"</div>"
 	],
@@ -33,7 +35,7 @@
 				"</tr>",
 				"<tr>",
 					"<td colspan='2'>",
-						"<label>Is This Okay?</label>",
+						"<label id='mclarizi_okLabel'>Is This Okay?</label>",
 						"<button id='mclarizi_yesButton'>Yes</button>",
 						"<button id='mclarizi_editButton'>Edit</button>",
 					"</td>",
@@ -47,7 +49,6 @@
 			"<table>",
 				"<tr>",
 					"<td colspan='2'>",
-					"<label>Edit Schedule:</label>",
 					"<button id='mclarizi_lastEditButton'>Edit</button>",
 					"</td>",
 					"<td id='mclarizi_schedulePage2'>",

@@ -1,6 +1,8 @@
 function mclarizi(userid, htmlId) {
 	var templates = {};
 	var apiKey = "?key=8842fcd2130a486a636d632b28d890b8";
+	var googleApi = "AIzaSyDOx9e1fSI3haH-IvAbBvfhNwjZZ8pO-xc";
+	var clientID = "736760673038-947rvgri6rbcglil31geh6hoh6njt1fl.apps.googleusercontent.com";
 
 	var model = {
 		views: [],
@@ -108,8 +110,16 @@ function mclarizi(userid, htmlId) {
 			$("#mclarizi_scheduleButton").click(function () {
 				var time = $("#mclarizi_timeInput").val();
 				console.log("Schedule clicked: " + time);
-				model.loadConfirmPage(time);
-				confirmView.initView();
+				if (time != ""){
+					model.loadConfirmPage(time);
+					confirmView.initView();
+				}
+				else{
+
+				}
+			});
+			$("#mclarizi_googleSignIn").click(function () {
+
 			});
 			model.addView(baseView.updateView);
 		}

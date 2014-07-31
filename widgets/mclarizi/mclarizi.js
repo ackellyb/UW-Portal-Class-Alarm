@@ -40,7 +40,7 @@ function mclarizi(userid, htmlId) {
 				dataType: 'json',
 				success: function(data) {
 					if (data.meta.status === 200) {
-						that.term = data.data.current_term;
+						that.term = data.data.current_term.toString();
 					} else {
 						model.updateViews("errorTerm");
 					}
@@ -56,16 +56,16 @@ function mclarizi(userid, htmlId) {
 				success: function(data) {
 
 					function filterCorrectTerm(element, index, array) {
-						return element.term === that.term;
+						return (element.term == that.term.toString());
 					}
 
-					function mapMeetTimes(element, index, array) {
-						return element.section.meets;
+					function mapSection(element, index, array) {
+						return element.sections;
 					}
 
 					if (data.meta.status === "200 OK") {
-						that.courses = data.result;
-						model.updateViews("courses");
+						that.courses = data.result.terms.filter(filterCorrectTerm)[0].courses.map(mapSection);
+						model.updateViews("confirm");
 					} else {
 						model.updateViews("errorCourse1");
 					}
@@ -87,7 +87,7 @@ function mclarizi(userid, htmlId) {
 			if (msg === "confirm") {
 				$(htmlId).html(templates.confirmPage);
 			} else if (msg === "courses") {
-				$(htmlId).html(model.courses.html);
+				$(htmlId).html("aY YOP");
 			} else if (msg === "error") {
 				$(htmlId).html("ERROR BITCH");
 			} else if (msg === "errorTerm") {

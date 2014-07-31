@@ -1,6 +1,8 @@
 function mclarizi(userid, htmlId) {
 	var templates = {};
 	var apiKey = "8842fcd2130a486a636d632b28d890b8";
+	var googleApi = "AIzaSyDOx9e1fSI3haH-IvAbBvfhNwjZZ8pO-xc";
+	var clientID = "736760673038-947rvgri6rbcglil31geh6hoh6njt1fl.apps.googleusercontent.com";
 
 	var model = {
 		views: [],

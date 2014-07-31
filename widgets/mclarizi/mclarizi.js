@@ -57,8 +57,16 @@ function mclarizi(userid, htmlId) {
 			$("#mclarizi_scheduleButton").click(function () {
 				var time = $("#mclarizi_timeInput").val();
 				console.log("Schedule clicked: " + time);
-				model.loadConfirmPage(time);
-				confirmView.initView();
+				if (time != ""){
+					model.loadConfirmPage(time);
+					confirmView.initView();
+				}
+				else{
+
+				}
+			});
+			$("#mclarizi_googleSignIn").click(function () {
+
 			});
 			model.addView(baseView.updateView);
 		}

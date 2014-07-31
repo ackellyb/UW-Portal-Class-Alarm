@@ -1,9 +1,12 @@
 function mclarizi(userid, htmlId) {
 	var templates = {};
-	var apiKey = "8842fcd2130a486a636d632b28d890b8";
+	var apiKey = "?key=8842fcd2130a486a636d632b28d890b8";
 
 	var model = {
 		views: [],
+		courses: [],
+		schedule: [],
+		term: {},
 
 		/**
 		 * Add a new view to be notified when the model changes.
@@ -28,7 +31,47 @@ function mclarizi(userid, htmlId) {
 		},
 
 		loadConfirmPage: function (time) {
-			model.updateViews("confirm");
+			var that = this;
+
+			$.ajax({
+				url: "https://api.uwaterloo.ca/v2/terms/list.json"+apiKey,
+				dataType: 'json',
+				success: function(data) {
+					if (data.meta.status === 200) {
+						that.term = data.data.current_term;
+					} else {
+						model.updateViews("errorTerm");
+					}
+				},
+				error: function() {
+					model.updateViews("errorTerm");
+				}
+			});
+
+			$.ajax({
+				url: "https://cs349.student.cs.uwaterloo.ca:9410/api/v1/student/stdCourseDetails/"+userid,
+				dataType: 'json',
+				success: function(data) {
+
+					function filterCorrectTerm(element, index, array) {
+						return element.term === that.term;
+					}
+
+					function mapMeetTimes(element, index, array) {
+						return element.section.meets;
+					}
+
+					if (data.meta.status === "200 OK") {
+						that.courses = data.result;
+						model.updateViews("courses");
+					} else {
+						model.updateViews("errorCourse1");
+					}
+				},
+				error: function() {
+					model.updateViews("errorCourse");
+				}
+			});
 		},
 
 		loadFinalPage: function () {
@@ -41,8 +84,16 @@ function mclarizi(userid, htmlId) {
 		updateView: function (msg) {
 			if (msg === "confirm") {
 				$(htmlId).html(templates.confirmPage);
+			} else if (msg === "courses") {
+				$(htmlId).html(model.courses.html);
 			} else if (msg === "error") {
 				$(htmlId).html("ERROR BITCH");
+			} else if (msg === "errorTerm") {
+				$(htmlId).html("ERROR BITCH tmer");
+			} else if (msg === "errorCourse") {
+				$(htmlId).html("ERROR BITCH course");
+			} else if (msg === "errorCourse1") {
+				$(htmlId).html("ERROR BITCH course1");
 			}
 		},
 

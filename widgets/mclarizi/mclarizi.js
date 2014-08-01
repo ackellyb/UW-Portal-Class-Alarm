@@ -162,7 +162,8 @@ function mclarizi(userid, htmlId) {
 	var baseView = {
 		updateView: function (msg) {
 			if (msg === "confirm") {
-				$(htmlId).html(templates.confirmPage);
+				var t = Mustache.render(templates.confirmPage, model);
+				$(htmlId).html(t);
 			} else if (msg === "courses") {
 				$(htmlId).html("aY YOP");
 			} else if (msg === "error") {

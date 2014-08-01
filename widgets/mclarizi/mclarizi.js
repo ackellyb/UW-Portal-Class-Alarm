@@ -4,9 +4,15 @@ function mclarizi(userid, htmlId) {
 	var googleApi = "AIzaSyDOx9e1fSI3haH-IvAbBvfhNwjZZ8pO-xc";
 	var clientID = "736760673038-947rvgri6rbcglil31geh6hoh6njt1fl.apps.googleusercontent.com";
 
-	function Time(timeStr) {
+	function ClassTime(timeStr, dateStr) {
 		this.hour = parseInt(timeStr.substring(0, 2));
 		this.minute = parseInt(timeStr.substring(3,5));
+		this.startDate = function() {
+			var now = Date.now();
+			var month = dateStr.substring(0,2);
+			var day = dateStr.subtrackMins(3,5);
+			return new Date(now.getYear(), month, day, this.hour, this.minute, 0);
+		};
 
 		this.isBigger = function(time) {
 			if (this.hour === time.hour) {
@@ -72,11 +78,11 @@ function mclarizi(userid, htmlId) {
 					if (data.meta.status === 200) {
 						that.term = data.data.current_term.toString();
 					} else {
-						model.updateViews("errorTerm");
+						model.updateViews("error");
 					}
 				},
 				error: function() {
-					model.updateViews("errorTerm");
+					model.updateViews("error");
 				}
 			});
 
@@ -118,7 +124,7 @@ function mclarizi(userid, htmlId) {
 						}
 
 						for(i = 0; i < days.length; i++) {
-							var classTime = new Time(element[0].meetTimes.substring(0, 5))
+							var classTime = new ClassTime(element[0].meetTimes.substring(0, 5), element[0].meetDates);
 							classTime.subtrackMins(time);
 							if (that.schedule.hasOwnProperty(days[i])) {
 								var isBigger = classTime.isBigger(that.schedule[days[i]]);
@@ -134,7 +140,6 @@ function mclarizi(userid, htmlId) {
 						if (data.result != undefined){
 							that.courses = [].concat.apply([], data.result.terms.filter(filterCorrectTerm).pop().courses.map(mapSection));
 							that.courses = that.courses.filter(filterTests).map(mapMeets);
-//						$(htmlId).html("<p>"+JSON.stringify(that.courses, undefined, 2)+"</p>");
 							that.courses.forEach(createSchedule);
 							var output = '';
 							for (var property in that.schedule) {
@@ -144,11 +149,11 @@ function mclarizi(userid, htmlId) {
 							model.updateViews("confirm");
 						}
 					} else {
-						model.updateViews("errorCourse1");
+						model.updateViews("error");
 					}
 				},
 				error: function() {
-					model.updateViews("errorCourse");
+					model.updateViews("error");
 				}
 			});
 		},
@@ -164,16 +169,8 @@ function mclarizi(userid, htmlId) {
 			if (msg === "confirm") {
 				var t = Mustache.render(templates.confirmPage, model);
 				$(htmlId).html(t);
-			} else if (msg === "courses") {
-				$(htmlId).html("aY YOP");
 			} else if (msg === "error") {
-				$(htmlId).html("ERROR BITCH");
-			} else if (msg === "errorTerm") {
-				$(htmlId).html("ERROR BITCH tmer");
-			} else if (msg === "errorCourse") {
-				$(htmlId).html("ERROR BITCH course");
-			} else if (msg === "errorCourse1") {
-				$(htmlId).html("ERROR BITCH course1");
+				$(htmlId).html(templates.error);
 			}
 		},
 
@@ -209,6 +206,8 @@ function mclarizi(userid, htmlId) {
 				$(htmlId).html(templates.baseHtml);
 			} else if (msg === "final") {
 				$(htmlId).html(templates.finalPage);
+			} else if (msg === "error") {
+				$(htmlId).html(templates.error);
 			}
 		},
 
@@ -239,7 +238,7 @@ function mclarizi(userid, htmlId) {
 			if (msg === "base") {
 				$(htmlId).html(templates.baseHtml);
 			} else if (msg === "error") {
-				$(htmlId).html(templates.finalPage);
+				$(htmlId).html(templates.error);
 			}
 		},
 

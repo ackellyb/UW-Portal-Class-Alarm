@@ -15,11 +15,11 @@
 			"<table>",
 				"<tr>",
 					"<td id='mclarizi_schedulePage1'>",
-						"<p><label>M: </label><label id='mclarizi_mon'>{{ schedule.M}}</label></p>",
-						"<p><label>Tu: </label><label id='mclarizi_tue'>{{ schedule.T }}</label></p>",
-						"<p><label>W: </label><label id='mclarizi_wed'>{{ schedule.W }}</label></p>",
-						"<p><label>Th: </label><label id='mclarizi_thu'>{{ schedule.Th }}</label></p>",
-						"<p><label>F: </label><label id='mclarizi_fri'>{{ schedule.F }}</label></p>",
+						"<p><label class='mclarizi_tableMargin'>M:     </label><label id='mclarizi_mon'>{{ schedule.M}}</label></p>",
+						"<p><label class='mclarizi_tableMargin'>Tu:    </label><label id='mclarizi_tue'>{{ schedule.T }}</label></p>",
+						"<p><label class='mclarizi_tableMargin'>W:     </label><label id='mclarizi_wed'>{{ schedule.W }}</label></p>",
+						"<p><label class='mclarizi_tableMargin'>Th:    </label><label id='mclarizi_thu'>{{ schedule.Th }}</label></p>",
+						"<p><label class='mclarizi_tableMargin'>F:     </label><label id='mclarizi_fri'>{{ schedule.F }}</label></p>",
 					"</td>",
 				"</tr>",
 				"<tr>",
@@ -57,6 +57,10 @@
 				"</tr>",
 			"</table>",
 		"</div>"
+	],
+
+	"error": [
+		"Problem with the widet. Please refresh and try again"
 	]
 
 }

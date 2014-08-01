@@ -17,22 +17,48 @@ function mclarizi(userid, htmlId) {
 		});
 	}
 
-	function insertCal(time){
-		$.ajax({
-			url: "https://www.googleapis.com/calendar/v3/calendars/primary/events?maxAttendees=1&sendNotifications=true&fields=recurrence%2Creminders&key={" + googleApi + "}",
-			dataType: 'json',
+	function insertCal(){
+		var timezone = new Date().getTimezoneOffset();
+		var dateTime;
+		var dateTime1 = model.schedule['M'].startDate();
+		var dateTime2 = model.schedule['T'].startDate();
+		var dateTime3 = model.schedule['W'].startDate();
+		var dateTime4 = model.schedule['Th'].startDate();
+		var dateTime5 = model.schedule['F'].startDate();
+		for(var i = 1; i < 6; i++) {
+			if (i == 1){
+				dateTime = dateTime1;
+			}
+			else if (i == 2){
+				dateTime = dateTime2;
+			}
+			else if (i == 3){
+				dateTime = dateTime3;
+			}
+			else if (i == 4){
+				dateTime = dateTime4;
+			}
+			else if (i == 5){
+				dateTime = dateTime5;
+			}
 
-			success: function(data) {
-				if (data.meta.status === 200) {
-					that.term = data.data.current_term;
-				} else {
+			$.ajax({
+				url: "https://www.googleapis.com/calendar/v3/calendars/primary/events?maxAttendees=1&sendNotifications=true&fields=recurrence%2Creminders&key={" + googleApi + "}",
+				dataType: 'json',
+				data: {
+					end: {dateTime: dateTime, timeZone: timezone},
+					start: {dateTime: dateTime, timeZone: timezone},
+					reminder: { useDefault: true},
+					recurrence: "RRULE:FREQ=WEEKLY;" },
+				success: function (data) {
+					model.loadFinalPage();
+					finalView.initView();
+				},
+				error: function (data) {
 					model.updateViews("errorTerm");
 				}
-			},
-			error: function(data) {
-				model.updateViews("errorTerm");
-			}
-		});
+			});
+		}
 	}
 
 
@@ -253,9 +279,7 @@ function mclarizi(userid, htmlId) {
 			 */
 			$("#mclarizi_yesButton").click(function () {
 				console.log("Yes clicked!");
-				insertCal(time);
-				model.loadFinalPage();
-				finalView.initView();
+				insertCal();
 			});
 			$("#mclarizi_editButton").click(function () {
 				console.log("Edit clicked!");

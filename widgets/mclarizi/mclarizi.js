@@ -256,9 +256,6 @@ function mclarizi(userid, htmlId) {
 
 				}
 			});
-			$("#mclarizi_googleSignIn").click(function () {
-				auth();
-			});
 			model.addView(baseView.updateView);
 		}
 	};

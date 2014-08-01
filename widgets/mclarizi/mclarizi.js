@@ -4,10 +4,40 @@ function mclarizi(userid, htmlId) {
 	var googleApi = "AIzaSyDOx9e1fSI3haH-IvAbBvfhNwjZZ8pO-xc";
 	var clientID = "736760673038-947rvgri6rbcglil31geh6hoh6njt1fl.apps.googleusercontent.com";
 
+	function Time(timeStr) {
+		this.hour = parseInt(timeStr.substring(0, 2));
+		this.minute = parseInt(timeStr.substring(3,5));
+
+		this.isBigger = function(time) {
+			if (this.hour === time.hour) {
+				return (this.minute > time.minute);
+			} else {
+				return (this.hour > time.hour);
+			}
+		};
+
+		this.subtrackMins = function(min) {
+			var hourSub = Math.floor(min / 60);
+			var minSub = min % 60;
+			if (this.minute - minSub < 0) {
+				hourSub+=1;
+				this.minute = this.minute+60;
+
+			}
+			this.hour = (this.hour - hourSub)%24;
+			this.minute = (this.minute - minSub)%60;
+		};
+
+		this.toString = function() {
+			return this.hour+":"+this.minute;
+		};
+
+	}
+
 	var model = {
 		views: [],
 		courses: [],
-		schedule: [],
+		schedule: new Object(),
 		term: {},
 
 		/**
@@ -59,13 +89,60 @@ function mclarizi(userid, htmlId) {
 						return (element.term == that.term.toString());
 					}
 
+					function filterTests(element, index, array) {
+						return (element.componentCode != "TST");
+					}
+
 					function mapSection(element, index, array) {
 						return element.sections;
 					}
 
+					function mapMeets(element, index, array) {
+						return element.meets;
+					}
+
+					function createSchedule(element, index, array) {
+						var days = [];
+						var dayTemp = "";
+						var dateStr = element[0].meetDays.toString();
+
+						for(i =0; i < dateStr.length; i++) {
+							if (dayTemp.length > 0 && dateStr[i] === dateStr[i].toUpperCase()) {
+								days.push(dayTemp);
+								dayTemp = "";
+							}
+							dayTemp = dayTemp + dateStr[i];
+						}
+						if (dayTemp.length > 0) {
+							days.push(dayTemp)
+						}
+
+						for(i = 0; i < days.length; i++) {
+							var classTime = new Time(element[0].meetTimes.substring(0, 5))
+							classTime.subtrackMins(time);
+							if (that.schedule.hasOwnProperty(days[i])) {
+								var isBigger = classTime.isBigger(that.schedule[days[i]]);
+								if (!isBigger) {
+									that.schedule[days[i]] = classTime;
+								}
+							} else {
+								that.schedule[days[i]] = classTime;
+							}
+						}
+					}
 					if (data.meta.status === "200 OK") {
-						that.courses = data.result.terms.filter(filterCorrectTerm)[0].courses.map(mapSection);
-						model.updateViews("confirm");
+						if (data.result != undefined){
+							that.courses = [].concat.apply([], data.result.terms.filter(filterCorrectTerm).pop().courses.map(mapSection));
+							that.courses = that.courses.filter(filterTests).map(mapMeets);
+//						$(htmlId).html("<p>"+JSON.stringify(that.courses, undefined, 2)+"</p>");
+							that.courses.forEach(createSchedule);
+							var output = '';
+							for (var property in that.schedule) {
+								output += property + ': ' + that.schedule[property]+'; ';
+							}
+							console.log(output);
+							model.updateViews("confirm");
+						}
 					} else {
 						model.updateViews("errorCourse1");
 					}

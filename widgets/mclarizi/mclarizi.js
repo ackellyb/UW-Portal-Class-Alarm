@@ -3,6 +3,38 @@ function mclarizi(userid, htmlId) {
 	var apiKey = "?key=8842fcd2130a486a636d632b28d890b8";
 	var googleApi = "AIzaSyDOx9e1fSI3haH-IvAbBvfhNwjZZ8pO-xc";
 	var clientID = "736760673038-947rvgri6rbcglil31geh6hoh6njt1fl.apps.googleusercontent.com";
+	var secret = "Z5eW5_bOKd9DT5RrnIdWBpAF";
+	var scope = "https://www.googleapis.com/auth/calender"
+
+	function auth() {
+		var config = {
+			'client_id': clientID,
+			'scope': scope
+		};
+		gapi.auth.authorize(config, function() {
+			console.log('login complete');
+			console.log(gapi.auth.getToken());
+		});
+	}
+
+	function insertCal(time){
+		$.ajax({
+			url: "https://www.googleapis.com/calendar/v3/calendars/primary/events?maxAttendees=1&sendNotifications=true&fields=recurrence%2Creminders&key={" + googleApi + "}",
+			dataType: 'json',
+
+			success: function(data) {
+				if (data.meta.status === 200) {
+					that.term = data.data.current_term;
+				} else {
+					model.updateViews("errorTerm");
+				}
+			},
+			error: function(data) {
+				model.updateViews("errorTerm");
+			}
+		});
+	}
+
 
 	function ClassTime(timeStr, dateStr) {
 		this.hour = parseInt(timeStr.substring(0, 2));
@@ -187,14 +219,14 @@ function mclarizi(userid, htmlId) {
 				console.log("Schedule clicked: " + time);
 				if (time != ""){
 					model.loadConfirmPage(time);
-					confirmView.initView();
+					confirmView.initView(time);
 				}
 				else{
 
 				}
 			});
 			$("#mclarizi_googleSignIn").click(function () {
-
+				auth();
 			});
 			model.addView(baseView.updateView);
 		}
@@ -211,7 +243,7 @@ function mclarizi(userid, htmlId) {
 			}
 		},
 
-		initView: function () {
+		initView: function (time) {
 			console.log("Initializing confirmView");
 
 			/*
@@ -221,6 +253,7 @@ function mclarizi(userid, htmlId) {
 			 */
 			$("#mclarizi_yesButton").click(function () {
 				console.log("Yes clicked!");
+				insertCal(time);
 				model.loadFinalPage();
 				finalView.initView();
 			});

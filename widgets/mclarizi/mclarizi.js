@@ -18,6 +18,7 @@ function mclarizi(userid, htmlId) {
 	}
 
 	function insertCal(){
+		console.log("entering Insert Cal");
 		var timezone = new Date().getTimezoneOffset();
 		var dateTime;
 		var dateTime1 = model.schedule['M'].startDate();
@@ -26,22 +27,23 @@ function mclarizi(userid, htmlId) {
 		var dateTime4 = model.schedule['Th'].startDate();
 		var dateTime5 = model.schedule['F'].startDate();
 		for(var i = 1; i < 6; i++) {
-			if (i == 1){
+			if (i == 1) {
 				dateTime = dateTime1;
 			}
-			else if (i == 2){
+			else if (i == 2) {
 				dateTime = dateTime2;
 			}
-			else if (i == 3){
+			else if (i == 3) {
 				dateTime = dateTime3;
 			}
-			else if (i == 4){
+			else if (i == 4) {
 				dateTime = dateTime4;
 			}
-			else if (i == 5){
+			else if (i == 5) {
 				dateTime = dateTime5;
 			}
-
+		}
+		console.log["Making Google Call"];
 			$.ajax({
 				url: "https://www.googleapis.com/calendar/v3/calendars/primary/events?maxAttendees=1&sendNotifications=true&fields=recurrence%2Creminders&key={" + googleApi + "}",
 				dataType: 'json',
@@ -59,7 +61,6 @@ function mclarizi(userid, htmlId) {
 				}
 			});
 		}
-	}
 
 
 	function ClassTime(timeStr, dateStr) {
@@ -269,7 +270,7 @@ function mclarizi(userid, htmlId) {
 			}
 		},
 
-		initView: function (time) {
+		initView: function () {
 			console.log("Initializing confirmView");
 
 			/*

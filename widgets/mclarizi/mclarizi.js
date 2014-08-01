@@ -154,6 +154,10 @@ function mclarizi(userid, htmlId) {
 						return (element.term == that.term.toString());
 					}
 
+					function filterOnlineClasses(element, index, array) {
+						return !jQuery.isEmptyObject(element.meets);
+					}
+
 					function filterTests(element, index, array) {
 						return (element.componentCode != "TST");
 					}
@@ -196,9 +200,9 @@ function mclarizi(userid, htmlId) {
 						}
 					}
 					if (data.meta.status === "200 OK") {
-						if (data.result != undefined){
+						if (!jQuery.isEmptyObject(data.result)){
 							that.courses = [].concat.apply([], data.result.terms.filter(filterCorrectTerm).pop().courses.map(mapSection));
-							that.courses = that.courses.filter(filterTests).map(mapMeets);
+							that.courses = that.courses.filter(filterTests).filter(filterOnlineClasses).map(mapMeets);
 							that.courses.forEach(createSchedule);
 							var output = '';
 							for (var property in that.schedule) {

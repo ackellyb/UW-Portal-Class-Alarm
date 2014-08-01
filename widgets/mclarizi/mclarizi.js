@@ -54,6 +54,7 @@ function mclarizi(userid, htmlId) {
 					recurrence: "RRULE:FREQ=WEEKLY;" },
 				success: function (data) {
 					model.loadFinalPage();
+					finalView.initView();
 				},
 				error: function (data) {
 					model.updateViews("errorTerm");
@@ -249,6 +250,7 @@ function mclarizi(userid, htmlId) {
 				console.log("Schedule clicked: " + time);
 				if (time != ""){
 					model.loadConfirmPage(time);
+					confirmView.initView(time);
 				}
 				else{
 
@@ -287,6 +289,7 @@ function mclarizi(userid, htmlId) {
 			$("#mclarizi_editButton").click(function () {
 				console.log("Edit clicked!");
 				model.loadBasePage();
+				baseView.initView();
 			});
 			model.addView(confirmView.updateView);
 		}
@@ -326,7 +329,5 @@ function mclarizi(userid, htmlId) {
 			templates = t;
 			$(htmlId).html(templates.baseHtml);
 			baseView.initView();
-			confirmView.initView();
-			finalView.initView();
 		});
 }
